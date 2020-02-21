@@ -21,5 +21,7 @@ def main(arr, verbose = False):
         # Insert
         ###############################
         arr[j+1] = temp
+        if verbose:
+            print('\t\t\tPass: %s' % str(arr))
 
     return arr

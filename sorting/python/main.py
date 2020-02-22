@@ -9,6 +9,7 @@ def main(verbose = False):
     print('\n--------------------------------------------------')
     print('  Running sorting algorithms in sibling files...')
     print('--------------------------------------------------')
+    og = None
     randinput  = [
         random.randint(MIN, MAX) for _ in range(random.randint(0, LEN))
     ]
@@ -20,8 +21,19 @@ def main(verbose = False):
         try:
             mysorted = importlib.import_module(algorithm).main
             expect   = sorted(randinput)
-            actual   = mysorted(randinput) if algorithm not in INTSORTS \
-                        else mysorted(randinput, MIN, MAX)
+            actual   = None
+            if algorithm == 'counting':
+                actual = mysorted(randinput, MIN, MAX)
+            elif algorithm == 'radix':
+                og = randinput
+                randinput = [
+                    random.randint(100, 999)
+                        for _ in range(random.randint(0, 10))
+                ]
+                expect = sorted(randinput)
+                actual = mysorted(randinput, base = 10)
+            else:
+                actual = mysorted(randinput)
             if mysorted.__doc__:
                 print('%s' % mysorted.__doc__)
             else:
@@ -36,6 +48,7 @@ def main(verbose = False):
                 record['FAIL'] += 1
             print('\t\tinput: %s' % str(randinput))
             mysorted([_ for _ in randinput], verbose = verbose)
+            randinput = og or randinput
             print('\t\tactual: %s' % str(actual))
             print('\t\texpect: %s' % str(expect))
             print()

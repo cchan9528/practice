@@ -1,4 +1,4 @@
-def _quicksort(arr, start, stop, verbose = False):
+def _quicksort(arr, first, last, verbose = False):
     '''
     Quick Sort
         - Build a sorted array by positioning partition elements and repeating
@@ -8,33 +8,33 @@ def _quicksort(arr, start, stop, verbose = False):
             subarray; equal elements can go anywhere
         - O(log(n)) space; O(nlogn) avg, O(nlogn) best, O(n^2) worst runtime
     '''
-    if start < stop:
+    if first < last:
         ###############################
         # Position partition
         ###############################
-        partition = _partition(arr, start, stop, verbose = verbose)
-        
+        partition = _partition(arr, first, last, verbose = verbose)
+
         ###############################
         # Sort subarrays
         ###############################
         _quicksort(arr, 0, partition-1, verbose = verbose)
-        _quicksort(arr, partition+1, stop, verbose = verbose)
+        _quicksort(arr, partition+1, last, verbose = verbose)
 
-def _partition(arr, start, stop, verbose = False):
+def _partition(arr, first, last, verbose = False):
     ###############################
     # Select a partition
     ###############################
-    p = start
+    p = first
 
     ###############################
     # Position elements
     ###############################
-    i = start+1
-    j = stop
+    i = first+1
+    j = last
     while True:
-        while i<=stop and arr[i]<=arr[p]:   # Look for element > partition
+        while i<=last and arr[i]<=arr[p]:   # Look for element > partition
             i += 1
-        while j>=start+1 and arr[j]>=arr[p]:  # Look for element < partition
+        while j>=first+1 and arr[j]>=arr[p]:  # Look for element < partition
             j -= 1
         if i>=j:                            # If they touch or crossed, stop
             break

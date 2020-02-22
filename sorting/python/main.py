@@ -5,7 +5,6 @@ def main(verbose = False):
     print('  Running sorting algorithms in sibling files...')
     print('--------------------------------------------------')
     randinput  = [random.randint(-10, 10) for _ in range(random.randint(0, 10))]
-    # randinput = [1,2,3]
     algorithms = [ os.path.splitext(_)[0] for _ in os.listdir() if '__' not in _
                     and 'main' not in _
                     and 'requirements' not in _]

@@ -17,8 +17,8 @@ def main(arr, min = -10, max = 10, verbose = False):
     # Build the frequency array
     ###############################
     n     = len(arr)
-    start = abs(min)                          # if min<0, offset indexing cf
-    cf    = [0 for i in range(min, max+1)]    # +1 for 0 in middle of range
+    start = abs(min) if min<0 else -(abs(min))   # if min!=0, offset cf index
+    cf    = [0 for i in range(min, max+1)]       # +1 for 0 in middle of range
     res   = [0 for i in range(n)]
 
     ###############################

@@ -1,10 +1,17 @@
 import os, importlib, random, sys, termcolor
 
+MIN = 1
+MAX = 10
+LEN = 10
+INTSORTS = ['counting', 'radix', 'bucket']
+
 def main(verbose = False):
     print('\n--------------------------------------------------')
     print('  Running sorting algorithms in sibling files...')
     print('--------------------------------------------------')
-    randinput  = [random.randint(-10, 10) for _ in range(random.randint(0, 10))]
+    randinput  = [
+        random.randint(MIN, MAX) for _ in range(random.randint(0, LEN))
+    ]
     algorithms = [ os.path.splitext(_)[0] for _ in os.listdir() if '__' not in _
                     and 'main' not in _
                     and 'requirements' not in _]
@@ -13,7 +20,8 @@ def main(verbose = False):
         try:
             mysorted = importlib.import_module(algorithm).main
             expect   = sorted(randinput)
-            actual   = mysorted(randinput)
+            actual   = mysorted(randinput) if algorithm not in INTSORTS \
+                        else mysorted(randinput, MIN, MAX)
             if mysorted.__doc__:
                 print('%s' % mysorted.__doc__)
             else:

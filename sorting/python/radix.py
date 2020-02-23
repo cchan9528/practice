@@ -1,4 +1,4 @@
-def radix(arr, base = 10, verbose = False):
+def radix(x, base = 10, verbose = False):
     '''
     Radix Sort
         - Build a sorted array by sorting digits from least significant digit
@@ -11,8 +11,8 @@ def radix(arr, base = 10, verbose = False):
             characteristics of an element, no by comparing one element with
             another
     '''
-
-    n = len(arr)
+    arr = [_ for _ in x]
+    n   = len(arr)
     if n <= 1:
         return arr
 

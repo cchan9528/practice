@@ -50,7 +50,8 @@ def _partition(arr, first, last, verbose = False):
         print('\t\t\tPass (after %s partition): %s' % (str(arr[j]),str(arr)))
     return j
 
-def main(arr, verbose = False):
+def main(x, verbose = False):
+    arr = [_ for _ in x]
     _quicksort(arr, 0, len(arr)-1, verbose = verbose)
     return arr
 main.__doc__ = _quicksort.__doc__

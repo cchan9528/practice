@@ -4,6 +4,7 @@ MIN = 1
 MAX = 10
 LEN = 10
 INTSORTS = ['counting', 'radix', 'bucket']
+FOCUS = [] # Should be the filename without .py
 
 def main(verbose = False):
     print('\n--------------------------------------------------')
@@ -16,8 +17,10 @@ def main(verbose = False):
     algorithms = [ os.path.splitext(_)[0] for _ in os.listdir() if '__' not in _
                     and 'main' not in _
                     and 'requirements' not in _]
-    record = { 'PASS' : 0, 'FAIL' : 0, 'SKIP' : 0}
+    record = { 'PASS' : [], 'FAIL' : [], 'SKIP' : []}
     for algorithm in algorithms:
+        if len(FOCUS) > 0 and algorithm not in FOCUS:
+            continue
         try:
             mysorted = importlib.import_module(algorithm).main
             expect   = sorted(randinput)
@@ -42,10 +45,10 @@ def main(verbose = False):
             print('\n\tImplementation: ', end='')
             if actual == expect:
                 termcolor.cprint(' P A S S ', 'white', 'on_green')
-                record['PASS'] += 1
+                record['PASS'].append(algorithm)
             else:
                 termcolor.cprint(' F A I L ', 'white', 'on_red')
-                record['FAIL'] += 1
+                record['FAIL'].append(algorithm)
             print('\t\tinput: %s' % str(randinput))
             mysorted([_ for _ in randinput], verbose = verbose)
             randinput = og or randinput
@@ -56,12 +59,20 @@ def main(verbose = False):
             print('\n    %s.py: ' % (str(algorithm)))
             termcolor.cprint('\n\t S K I P ', 'white', 'on_yellow')
             print('\t%s\n' % str(e))
-            record['SKIP'] += 1
+            record['SKIP'].append(algorithm)
             pass
 
     print('\n--------------------------------------------------')
     print('            PASS-FAIL-SKIP: %s-%s-%s'
-            % (str(record['PASS']), str(record['FAIL']), str(record['SKIP'])))
+            % (
+                str(len(record['PASS'])),
+                str(len(record['FAIL'])),
+                str(len(record['SKIP']))
+            )
+    )
+    print('                PASS: %s ' % str(record['PASS']))
+    print('                FAIL: %s ' % str(record['FAIL']))
+    print('                SKIP: %s ' % str(record['SKIP']))
     print('--------------------------------------------------\n')
 if __name__ == '__main__':
     if len(sys.argv) >= 2 and sys.argv[1] == '-v':

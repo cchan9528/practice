@@ -1,4 +1,4 @@
-def _heapsort(arr, verbose = False):
+def _heapsort(x, verbose = False):
     '''
     Heap Sort
         - Build a sorted array from the right by using a max-heap to
@@ -6,7 +6,8 @@ def _heapsort(arr, verbose = False):
             the leftover heap, and repeating until the size of the heap is 1
         - O(1) space; O(nlogn) runtime
     '''
-    n = len(arr)
+    arr = [_ for _ in x]
+    n   = len(arr)
 
     ###############################
     # Heapify the original
@@ -26,6 +27,7 @@ def _heapsort(arr, verbose = False):
         _heapifySubtree(arr, 0, n-1-i)             # Subtree is the whole heap
         if verbose:
             print('\t\t\tPass (after pop and heapify): %s' % str(arr))
+    return arr
 
 def _heapifySubtree(arr, root, last):
     if root == last:
@@ -52,5 +54,4 @@ def _heapifySubtree(arr, root, last):
         _heapifySubtree(arr, right, last)
 
 def main(arr, verbose = False):
-    _heapsort(arr, verbose=verbose)
-    return arr
+    return _heapsort(arr, verbose=verbose)

@@ -1,4 +1,4 @@
-def main(arr, verbose = False):
+def main(x, verbose = False):
     '''
     Bubble Sort
         - Build a sorted array from the right side by bubbling up the biggest
@@ -6,6 +6,7 @@ def main(arr, verbose = False):
             - Optimization: stop early if no bubbling
         - O(1) space, O(n^2) runtime
     '''
+    arr = [_ for _ in x]
     n = len(arr)
     for i in range(n):
         bubbled = False

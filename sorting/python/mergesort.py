@@ -46,6 +46,7 @@ def _merge(left, right, verbose = False):
         print('\t\t\tPass (after merge): %s' % str(merged))
     return merged
 
-def main(arr, verbose = False):
+def main(x, verbose = False):
+    arr = [_ for _ in x]
     return _mergesort(arr, verbose = verbose)
 main.__doc__ = _mergesort.__doc__

@@ -1,4 +1,4 @@
-def main(arr, min = -10, max = 10, verbose = False):
+def main(x, min = -10, max = 10, verbose = False):
     '''
     Counting Sort
         - Build a sorted array by counting the frequency of element a[i],
@@ -13,6 +13,7 @@ def main(arr, min = -10, max = 10, verbose = False):
             another
 
     '''
+    arr = [_ for _ in x]
     ###############################
     # Build the frequency array
     ###############################
